@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta char='utf-8'>
+  <title>Travel Buddy</title>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'travelplan_app/css/styleplan.css'%}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+  <header>
+    <a href="{% url 'travelplan:travels' %}">Home</a>
+    <a href={% url 'travelplan:logout' %}>Logout</a>
+  </header>
+  <section>
+    <p>
+      {%if messages%}
+      {% for message in messages%}
+      <h4>{{ message }}</h4>
+      {%endfor%}
+      {%endif%}
+    </p>
+    <p>
+      Add a Trip
+    </p>
+    <form action={% url 'travelplan:add' %} method="post">
+      {%csrf_token%}
+      <input type='hidden' name="id" value="{{request.session.user.id}}">
+      <table id="planTable">
+        <tbody>
+          <tr>
+            <td>Destination:</td>
+            <td><input type="text" name="destination"></td>
+          </tr>
+          <tr>
+            <td>Description:</td>
+            <td><input type="text" name="description"></td>
+          </tr>
+          <tr>
+            <td>Travel Date From</td>
+            <td><input type="date" name="fromdate"></td>
+          </tr>
+          <tr>
+            <td>Travel Date To</td>
+            <td><input type="date" name="todate"></td>
+          </tr>
+        </table>
+        <button id="addButton" type="submit" value="add">Add</button>
+    </form>
+
+  </section>

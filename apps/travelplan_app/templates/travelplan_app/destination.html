@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta char='utf-8'>
+  <title>Travel Buddy</title>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'travelplan_app/css/styleplan.css'%}" media="screen" title="no title"  charset="utf-8">
+</head>
+<body>
+  <header>
+      <a href={% url 'travelplan:travels' %}>Home</a>
+      <a href={% url 'travelplan:logout' %}>Logout</a>
+  </header>
+  <p>
+    {%if messages%}
+    {% for message in messages%}
+    <h4>{{ message }}</h4>
+    {%endfor%}
+    {%endif%}
+  </p>
+  <section>
+    <table>
+        <tr>{{destination.destination}}</tr>
+        <tr><td>Description:</td><td>{{destination.description}}</td></tr>
+        <tr><td>Travel Date From:</td><td>{{destination.traveldate_from}}</td></tr>
+        <tr><td>Travel Date To:</td><td>{{destination.traveldate_to}}</td></tr>
+        <tr><td>Planned By:</td><td>{{destination.user_travel.name}}</td></tr>
+    </table>
+  </section>
+  <p>Other users' joining the trip:</p>
+  {%for o in otherusers%}
+  <div id="otherusers">
+    {{o.user_trip.name}}
+  </div>
+  {%endfor%}
+</body>
+</html>

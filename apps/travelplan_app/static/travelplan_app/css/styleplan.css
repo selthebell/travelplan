@@ -1,0 +1,23 @@
+*{
+  margin:5px;
+  padding:5px;
+  font-family: "Lucida Sans", "Lucida Grande", sans-serif;
+}
+header{
+  margin-left: 400px;
+  font-weight: bold;
+}
+#homeheader{
+  display: inline-block;
+  margin-left: 10px;
+}
+#travelheader{
+  display: inline-block;
+  margin-left: 200px;
+}
+#addButton{
+  margin-left: 230px;
+}
+#otherusers{
+  margin-left: 20px;
+}
