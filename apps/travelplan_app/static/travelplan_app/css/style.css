@@ -3,6 +3,7 @@
   padding:10;
   font-family: "Lucida Sans", "Lucida Grande", sans-serif;
 }
+
 #right{
   display: inline-block;
   width:35%;
@@ -11,7 +12,7 @@
 #left{
   display: inline-block;
   width:35%;
-  border: solid black;
+  border: 1px solid black;
 
 }
 header{
@@ -37,8 +38,12 @@ td{
   text-align: left;
   padding:5px;
 }
-tr:nth-child(even) {background: #DDD}
-tr:nth-child(odd) {background: #FFF}
+tr:nth-child(even) {
+  background: #DDD
+}
+tr:nth-child(odd) {
+  background: #FFF
+}
 #addButton{
   margin-left: 230px;
 }

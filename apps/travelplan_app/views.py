@@ -127,7 +127,8 @@ def destination(request,id):
 
 def delete(request):
     if 'user' in request.session :
-        if(request.method=='POST'):
-            trip.objects.all().delete()
+            trip.objects.all().delete();
+            travelplan.objects.all().delete();
+            userDB.objects.all().delete();
             return redirect('travelplan:travels')
     return redirect('travelplan:index')
