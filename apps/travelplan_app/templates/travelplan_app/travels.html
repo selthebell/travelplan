@@ -32,52 +32,58 @@
         <th>Travel Start Date</th>
         <th>Travel End Date</th>
         <th>Plan</th>
-     </tr>
+      </tr>
       {% for user in users %}
       <tr>
         <td><a href={% url 'travelplan:destination' user.id%}>{{user.destination}}<a></td>
-        <td>{{user.traveldate_from}}</td>
-        <td>{{user.traveldate_to}}</td>
-        <td>{{user.description}}</td>
-      </tr>
-      {%endfor%}
-      {% for joinedtrip in joinedtrips %}
-      <tr>
-        <td><a href={% url 'travelplan:destination' joinedtrip.travel_join.id %}>{{joinedtrip.travel_join.destination}}</a></td>
-        <td>{{joinedtrip.travel_join.traveldate_from}}</td>
-        <td>{{joinedtrip.travel_join.traveldate_to}}</td>
-        <td>{{joinedtrip.travel_join.description}}</td>
-      </tr>
-      {% endfor %}
-    </table>
-   </section>
-   <hr>
-   <section>
-     <h3>Others User's Travel Plans</h3>
-     <hr>
-     <table>
-       <tr>
-         <th>Name</th>
-         <th>Destination</th>
-         <th>Travel Start Date</th>
-         <th>Travel End Date</th>
-         <th>Do you want to Join?</th>
-      </tr>
-     {% for otheruser in others %}
-     <tr>
-       <td>{{otheruser.user_travel.name}}</td>
-       <td><a href={% url 'travelplan:destination' otheruser.id %}>{{otheruser.destination}}</a></td>
-       <td>{{otheruser.traveldate_from}}</td>
-       <td>{{otheruser.traveldate_to}}</td>
-       <form action={% url 'travelplan:joinTrip' otheruser.id %} method="post">
-         {%csrf_token%}
-         <input type='hidden' name="userid" value="{{request.session.user.id}}">
-        <td><button type="submit" value="join">Join</button></td>
-       </form>
-      </tr>
-     {% endfor %}
-   </table>
-   </section>
-       <h3><a href={% url 'travelplan:showadd' %}>Add a travel plan</a></h3>
-</body>
-</html>
+          <td>{{user.traveldate_from}}</td>
+          <td>{{user.traveldate_to}}</td>
+          <td>{{user.description}}</td>
+        </tr>
+        {%endfor%}
+        {% for joinedtrip in joinedtrips %}
+        <tr>
+          <td><a href={% url 'travelplan:destination' joinedtrip.travel_join.id %}>{{joinedtrip.travel_join.destination}}</a></td>
+          <td>{{joinedtrip.travel_join.traveldate_from}}</td>
+          <td>{{joinedtrip.travel_join.traveldate_to}}</td>
+          <td>{{joinedtrip.travel_join.description}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+    <hr>
+    <section>
+      <h3>Others User's Travel Plans</h3>
+      <hr>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Destination</th>
+          <th>Travel Start Date</th>
+          <th>Travel End Date</th>
+          <th>Do you want to Join?</th>
+        </tr>
+        {% for otheruser in others %}
+        <tr>
+          <td>{{otheruser.user_travel.name}}</td>
+          <td><a href={% url 'travelplan:destination' otheruser.id %}>{{otheruser.destination}}</a></td>
+          <td>{{otheruser.traveldate_from}}</td>
+          <td>{{otheruser.traveldate_to}}</td>
+          <form action={% url 'travelplan:joinTrip' otheruser.id %} method="post">
+            {%csrf_token%}
+            <input type='hidden' name="userid" value="{{request.session.user.id}}">
+            <td><button type="submit" value="join">Join</button></td>
+          </form>
+        </tr>
+        {% endfor %}
+      </table>
+    </section>
+    <section>
+      <div id="addtravel">
+        <p>
+          <a href={% url 'travelplan:showadd' %}>Add a Travel Plan</a>
+        </p>
+      </div>
+    </section>
+  </body>
+  </html>

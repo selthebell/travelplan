@@ -42,3 +42,6 @@ tr:nth-child(odd) {background: #FFF}
 #addButton{
   margin-left: 230px;
 }
+#addtravel{
+  margin-left: 40%;
+}
