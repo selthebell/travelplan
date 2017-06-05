@@ -45,7 +45,7 @@ def login(request):
             context={
                 "users": newusers
             }
-            messages.add_message(request,messages.INFO,"Logged in successfully!")
+            #messages.add_message(request,messages.INFO,"Logged in successfully!")
             return redirect('travelplan:travels')
         else:
             for error in ret_val[1]:
@@ -82,18 +82,23 @@ def add(request):
 def travels(request):
     if 'user' in request.session :
         if( request.method=='GET'):
-            allusers=trip.objects.all()
-            currentuser=userDB.objects.filter(id=request.session['user']['id'])
-            newusers=travelplan.objects.filter(user_travel=currentuser)
-            usersother=trip.objects.filter(user_trip=currentuser)
-            other_users=travelplan.objects.filter(~Q(join_travel__in=trip.objects.filter(user_trip=currentuser)),~Q(user_travel=currentuser)).distinct()
-            context={
-                "users": newusers,
-                "joinedtrips" : usersother,
-                "others":other_users,
-                "allusers":allusers
-            }
-            return render(request,'travelplan_app/travels.html',context)
+            try:
+                allusers=trip.objects.all()
+                currentuser=userDB.objects.filter(id=request.session['user']['id'])
+                newusers=travelplan.objects.filter(user_travel=currentuser)
+                usersother=trip.objects.filter(user_trip=currentuser)
+                other_users=travelplan.objects.filter(~Q(join_travel__in=trip.objects.filter(user_trip=currentuser)),~Q(user_travel=currentuser)).distinct()
+                context={
+                    "users": newusers,
+                    "joinedtrips" : usersother,
+                    "others":other_users,
+                    "allusers":allusers
+                }
+                return render(request,'travelplan_app/travels.html',context)
+            except:
+                print("Couldnt create Travel plan:DB error")
+                messages.error(request,"Couldnt create Travel plan:DB error")
+                return redirect('travelplan:travels')
     return redirect('travelplan:index')
 
 def joinTrip(request,id):
@@ -103,7 +108,7 @@ def joinTrip(request,id):
                 retval=trip.objects.joinTrip(request.POST,id)
                 return redirect('travelplan:travels')
             except:
-                print("The destination doesn't exist")
+                print("Couldnt Join the trip:DB error")
                 messages.error(request,"Couldnt Join the trip:DB error")
                 return redirect('travelplan:travels')
     return redirect('travelplan:index')
